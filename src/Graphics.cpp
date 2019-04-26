@@ -1261,8 +1261,9 @@ void Create_CBVSRVUAV_Heap(D3D12Global &d3d, DXRGlobal &dxr, D3D12Resources &res
 	// 1 SRV for the index buffer
 	// 1 SRV for the vertex buffer
 	// 1 SRV for the texture
+	// 1 SRV for imgui
 	D3D12_DESCRIPTOR_HEAP_DESC desc = {};
-	desc.NumDescriptors = 7;
+	desc.NumDescriptors = 8;
 	desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 
@@ -1425,17 +1426,6 @@ void Build_Command_List(D3D12Global &d3d, DXRGlobal &dxr, D3D12Resources &resour
 
 	// Copy the DXR output to the back buffer
 	d3d.cmdList->CopyResource(d3d.backBuffer[d3d.frameIndex], resources.DXROutput);
-
-	// Transition back buffer to present
-	OutputBarriers[0].Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
-	OutputBarriers[0].Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
-	
-	// Wait for the transitions to complete
-	d3d.cmdList->ResourceBarrier(1, &OutputBarriers[0]);
-
-	// Submit the command list and wait for the GPU to idle
-	D3D12::Submit_CmdList(d3d);
-	D3D12::WaitForGPU(d3d);
 }
 
 /**

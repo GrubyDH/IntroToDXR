@@ -43,6 +43,7 @@ cbuffer ViewCB : register(b0)
 	matrix view;
 	float4 viewOriginAndTanHalfFovY;
 	float2 resolution;
+	int nSamples;
 };
 
 cbuffer MaterialCB : register(b1)

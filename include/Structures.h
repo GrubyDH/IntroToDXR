@@ -118,11 +118,13 @@ struct ViewCB
 	XMMATRIX view;
 	XMFLOAT4 viewOriginAndTanHalfFovY;
 	XMFLOAT2 resolution;
+	int nSamples;
 
 	ViewCB() {
 		view = XMMatrixIdentity();
 		viewOriginAndTanHalfFovY = XMFLOAT4(0, 0.f, 0.f, 0.f);
 		resolution = XMFLOAT2(1280, 720);
+		nSamples = 1;
 	}
 };
 
